@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
   def abort
   end
 
+  def contact
+  end
+
 end
