@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'minitest/autorun'
+require 'factory_girl_rails'
 #require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -17,6 +18,11 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
 
   config.include Rails.application.routes.url_helpers
+
+  config.include FactoryGirl::Syntax::Methods #new add
+  config.before do
+    FactoryGirl.find_definitions
+    end
 
 
   config.include Capybara::DSL
