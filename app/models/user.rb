@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   #before_save { email.downcase! }
+  has_many :microposts, dependent: :destroy
 
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -21,6 +22,12 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates :password, length: { minimum: 6 }
+
+  def feed
+# This is preliminary. See "Following users" for the full implementation.
+   # Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
+  end
 
 
   def following?(other_user)
